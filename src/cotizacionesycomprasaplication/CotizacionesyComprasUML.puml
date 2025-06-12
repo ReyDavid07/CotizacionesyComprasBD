@@ -1,0 +1,148 @@
+@startuml
+
+' ENTIDADES (CLASES)
+class EMPLEADO {
+  +codigo_empleado: int
+  +nombre: varchar
+  +cedula: varchar
+  +area_id: int
+}
+
+class CENTRO_COSTO {
+  +id_centro: int
+  +nombre_centro: varchar
+  +empleado_id: int
+}
+
+class RUBRO_PRESUPUESTAL {
+  +id_rubro: int
+  +descripcion: varchar
+  +presupuesto_total: decimal
+}
+
+class SOLICITUD {
+  +id_solicitud: int
+  +fecha: date
+  +empleado_id: int
+  +centro_id: int
+  +rubro_id: int
+}
+
+class ITEM_SOLICITUD {
+  +id_item: int
+  +nombre_bien: varchar
+  +cantidad: int
+  +unidad_medida: varchar
+  +valor_unitario: decimal
+  +total: decimal
+  +solicitud_id: int
+  +bien_id: int
+}
+
+class BIEN {
+  +id_bien: int
+  +codigo_universal: varchar
+  +nombre_bien: varchar
+  +tipo_bien: varchar
+}
+
+class PROVEEDOR {
+  +nit: varchar
+  +nombre_proveedor: varchar
+}
+
+class COTIZACION {
+  +id_cotizacion: int
+  +solicitud_id: int
+  +proveedor_id: varchar
+  +fecha_cotizacion: date
+}
+
+class DETALLE_COTIZACION {
+  +id_detalle: int
+  +cotizacion_id: int
+  +bien_id: int
+  +precio_cotizado: decimal
+}
+
+class ORDEN_COMPRA {
+  +id_orden: int
+  +proveedor_id: varchar
+  +fecha_orden: date
+  +monto_total: decimal
+  +fecha_entrega: date
+  +estado: varchar
+  +solicitud_id: int
+}
+
+class DETALLE_ORDEN {
+  +id_detalle_orden: int
+  +orden_id: int
+  +bien_id: int
+  +cantidad_solicitada: int
+  +cantidad_despachada: int
+  +unidad_medida: varchar
+  +valor_unitario: decimal
+  +total: decimal
+}
+
+class ENTRADA_ALMACEN {
+  +id_entrada: int
+  +fecha_entrada: date
+  +num_factura: varchar
+  +proveedor_id: varchar
+  +total_bienes: int
+  +valor_total: decimal
+}
+
+class DETALLE_ENTRADA {
+  +id_detalle_entrada: int
+  +entrada_id: int
+  +bien_id: int
+  +cantidad_entregada: int
+}
+
+class SALIDA_ALMACEN {
+  +id_salida: int
+  +fecha_salida: date
+  +fecha_entrega: date
+  +responsable_id: int
+}
+
+class DETALLE_SALIDA {
+  +id_detalle_salida: int
+  +salida_id: int
+  +bien_id: int
+  +cantidad_entregada: int
+}
+
+class UBICACION {
+  +id_ubicacion: int
+  +bien_id: int
+  +responsable_id: int
+  +direccion: varchar
+  +fecha_entrega: date
+}
+
+' RELACIONES (exactamente como las definiste)
+EMPLEADO "1" -- "0..*" SOLICITUD : R1 Realiza
+CENTRO_COSTO "1" -- "0..*" EMPLEADO : R2 Es_Responsable
+RUBRO_PRESUPUESTAL "1" -- "0..*" SOLICITUD : R3 Se_Aplica
+SOLICITUD "1" -- "1..*" ITEM_SOLICITUD : R4 Contiene
+ITEM_SOLICITUD "1" -- "1" BIEN : R5 CorrespondeA
+PROVEEDOR "1" -- "0..*" COTIZACION : R6 Cotiza
+COTIZACION "1" -- "1..*" DETALLE_COTIZACION : R7 Detalla
+SOLICITUD "1" -- "0..*" ORDEN_COMPRA : R8 SeGeneraA
+ORDEN_COMPRA "1" -- "1..*" DETALLE_ORDEN : R9 Contiene
+DETALLE_ORDEN "1" -- "1" BIEN : R10 RefiereA
+ORDEN_COMPRA "1" -- "1" PROVEEDOR : R11 SeRelaciona
+ENTRADA_ALMACEN "1" -- "1..*" DETALLE_ENTRADA : R12 Detalla
+DETALLE_ENTRADA "1" -- "1" BIEN : R13 RefiereA
+ENTRADA_ALMACEN "1" -- "1" PROVEEDOR : R14 EntregadaPor
+SALIDA_ALMACEN "1" -- "1..*" DETALLE_SALIDA : R15 Detalla
+DETALLE_SALIDA "1" -- "1" BIEN : R16 Contiene
+SALIDA_ALMACEN "1" -- "1" EMPLEADO : R17 Responsable
+BIEN "1" -- "1" UBICACION : R18 UbicadoEn
+
+@enduml
+
