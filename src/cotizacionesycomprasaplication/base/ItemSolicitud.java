@@ -10,7 +10,7 @@ package cotizacionesycomprasaplication.base;
  */
 public class ItemSolicitud {
     private int idItem;
-    private String nombreBien;
+    private String nombreItem;
     private int cantidad;
     private String unidadMedida;
     private double valorUnitario;
@@ -21,9 +21,9 @@ public class ItemSolicitud {
     public ItemSolicitud() {
     }
 
-    public ItemSolicitud(int idItem, String nombreBien, int cantidad, String unidadMedida, double valorUnitario, double total, int solicitudId, int bienId) {
+    public ItemSolicitud(int idItem, String nombreItem, int cantidad, String unidadMedida, double valorUnitario, double total, int solicitudId, int bienId) {
         this.idItem = idItem;
-        this.nombreBien = nombreBien;
+        this.nombreBien = nombreItem;
         this.cantidad = cantidad;
         this.unidadMedida = unidadMedida;
         this.valorUnitario = valorUnitario;
