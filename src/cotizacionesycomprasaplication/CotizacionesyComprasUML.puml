@@ -30,7 +30,7 @@ class SOLICITUD {
 
 class ITEM_SOLICITUD {
   +id_item: int
-  +nombre_bien: varchar
+  +nombre_item: varchar
   +cantidad: int
   +unidad_medida: varchar
   +valor_unitario: decimal
